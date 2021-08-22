@@ -1,10 +1,18 @@
 package com.valr.test.model.orderbook;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+/**
+ * User: raisandeepkmr
+ * Date: 2021/08/22
+ */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ask {
     String side;
     String quantity;
