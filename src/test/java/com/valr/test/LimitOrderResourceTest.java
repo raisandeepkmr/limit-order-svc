@@ -6,7 +6,7 @@ import io.vertx.junit5.VertxTestContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-class LimitOrderAppTest extends AbstractVerticle {
+class LimitOrderResourceTest extends AbstractVerticle {
     Vertx vertx = Vertx.vertx();
 
     @BeforeEach

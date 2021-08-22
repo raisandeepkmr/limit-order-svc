@@ -1,4 +1,4 @@
-package com.valr.test;
+package com.valr.test.boundry;
 
 import com.valr.test.control.LimitOrderService;
 import com.valr.test.control.OrderBookService;
@@ -12,7 +12,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class LimitOrderApp extends AbstractVerticle {
+public class LimitOrderResource extends AbstractVerticle {
     LimitOrderService limitOrderService = new LimitOrderService();
     OrderBookService orderBookService = new OrderBookService();
 
