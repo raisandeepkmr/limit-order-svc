@@ -3,11 +3,12 @@ package com.valr.test;
 import com.valr.test.control.LimitOrderService;
 import com.valr.test.control.OrderBookService;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerResponse;
-import io.vertx.ext.web.Route;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,23 +21,18 @@ public class LimitOrderApp extends AbstractVerticle {
         log.info("Starting vertx server!!");
         HttpServer server = vertx.createHttpServer();
         Router router = Router.router(vertx);
-
-        Route orderBook = router.route("/:currPair/orderbook");
-        orderBook.handler(ctx -> {
+        //***************************************ORDER BOOK ROUTE
+        router.get("/:currPair/orderbook")
+        .respond(ctx -> {
             String currPair = ctx.pathParam("currPair");
-            HttpServerResponse response = ctx.response();
-            response.setChunked(true);
-            response.write(limitOrderService.createLimitOrder(currPair));
-            ctx.response().end();
+            return Future.succeededFuture(orderBookService.getOrderBook(currPair));
         });
-
-        Route limitOrder = router.route("/orders/limit");
-        limitOrder.handler(ctx -> {
-
-            HttpServerResponse response = ctx.response();
-            response.setChunked(true);
-            response.write(orderBookService.getOrderBook());
-            ctx.response().end();
+        //***************************************LIMIT ORDER ROUTE
+        router.post("/orders/limit")
+        .handler(BodyHandler.create())
+        .respond(ctx -> {
+            JsonObject limitOrder = ctx.getBodyAsJson();
+            return Future.succeededFuture(limitOrderService.createLimitOrder(limitOrder));
         });
         server.requestHandler(router).listen(8080);
     }
