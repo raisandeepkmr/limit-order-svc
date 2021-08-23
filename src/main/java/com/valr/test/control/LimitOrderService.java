@@ -2,18 +2,21 @@ package com.valr.test.control;
 
 import com.valr.test.control.common.LimitOrderServiceException;
 import com.valr.test.model.orderlimit.LimitOrder;
+import com.valr.test.model.orderlimit.LimitOrderResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * User: raisandeepkmr
  * Date: 2021/08/22
  */
 public class LimitOrderService {
-    public String createLimitOrder(String userId, LimitOrder limitOrder) throws LimitOrderServiceException {
+    public LimitOrderResponse createLimitOrder(String userId, LimitOrder limitOrder) throws LimitOrderServiceException {
         if (InMemoryOrderService.getInstance().placeOrder(userId, limitOrder))
-            return "Limit order created successfully.";
-        return "Cannot create limit order at the moment.";
+            return LimitOrderResponse.builder().id(UUID.randomUUID().toString()).build();
+        throw new LimitOrderServiceException("Cannot create limit order", HttpResponseStatus.INTERNAL_SERVER_ERROR);
     }
 
     public List<LimitOrder> getTradeHistory(String userId, String currPair) throws LimitOrderServiceException {
