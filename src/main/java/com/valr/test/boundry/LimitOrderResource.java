@@ -61,8 +61,7 @@ public class LimitOrderResource extends AbstractVerticle {
             }
         });
         //***************************************TRADE HISTORY ROUTE
-        router.post("/:currPair/tradehistory")
-        .handler(BodyHandler.create())
+        router.get("/:currPair/tradehistory")
         .respond(ctx -> {
             String userId = ctx.request().getHeader("x-user-id");
             String currPair = ctx.pathParam("currPair");
@@ -74,6 +73,7 @@ public class LimitOrderResource extends AbstractVerticle {
             }
         });
         server.requestHandler(router).listen(8080);
+        startPromise.complete();
     }
 
     /**
@@ -84,5 +84,6 @@ public class LimitOrderResource extends AbstractVerticle {
     @Override
     public void stop(Promise<Void> stopPromise) throws Exception {
         log.info("Shutting down vertx!!");
+        stopPromise.complete();
     }
 }
