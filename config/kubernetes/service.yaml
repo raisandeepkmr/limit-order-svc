@@ -1,0 +1,54 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: limit-order-svc
+  namespace: default
+  uid: 5ae552a5-b68b-4bca-ae74-35c446fc7efb
+  resourceVersion: '54180'
+  creationTimestamp: '2021-08-23T00:15:15Z'
+  labels:
+    app: limit-order-svc
+  managedFields:
+    - manager: kubectl-expose
+      operation: Update
+      apiVersion: v1
+      time: '2021-08-23T00:15:15Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:externalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":8080,"protocol":"TCP"}':
+              .: {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector':
+            .: {}
+            'f:app': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 8080
+  selector:
+    app: limit-order-svc
+  clusterIP: 10.105.75.162
+  clusterIPs:
+    - 10.105.75.162
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+status:
+  loadBalancer: {}
