@@ -47,6 +47,25 @@ The REST API to the limit-order-svc is described below.
 
     {"status":"UP","checks":[{"id":"health-check-handler","status":"UP"}],"outcome":"UP"}
 
+### Request
+Before performing any data operation on the service you need to authenticate
+using below. Or API wil throw 'Unauthorised Error'
+
+`GET /auth/login`
+
+    curl --location --request GET 'http://127.0.0.1:8080/auth/login' \
+    --header 'x-user-id: sandeep'
+
+### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+    Content-Type: text/html
+    Content-Length: 128
+
+    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FuZGVlcCIsImlhdCI6MTYyOTc2MjgyOH0._V2fJ7vs0fzAQEToQaEeT8rIxnkWLa8aF_sFA6EKIDE
+
 ## Create a new limit order
 
 ### Request
@@ -56,6 +75,7 @@ The REST API to the limit-order-svc is described below.
     curl --location --request POST 'http://127.0.0.1:56996/orders/limit' \
     --header 'x-user-id: sandeep' \
     --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FuZGVlcCIsImlhdCI6MTYyOTc2MjgyOH0._V2fJ7vs0fzAQEToQaEeT8rIxnkWLa8aF_sFA6EKIDE'
     --data-raw '{
     "side": "SELL",
     "quantity": "0.100000",
@@ -86,6 +106,7 @@ Where *currPair* can be any currency pair i.g. BTCZAR
 
     curl --location --request GET 'http://127.0.0.1:8080/BTCZAR/orderbook' \
     --header 'x-user-id: sandeep'
+    --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FuZGVlcCIsImlhdCI6MTYyOTc2MjgyOH0._V2fJ7vs0fzAQEToQaEeT8rIxnkWLa8aF_sFA6EKIDE'
 
 ### Response
 
@@ -107,6 +128,7 @@ Where *currPair* can be any currency pair i.g. BTCZAR
 
     curl --location --request POST 'http://127.0.0.1:8080/BTCZAR/tradehistory' \
     --header 'x-user-id: sandeep'
+    --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FuZGVlcCIsImlhdCI6MTYyOTc2MjgyOH0._V2fJ7vs0fzAQEToQaEeT8rIxnkWLa8aF_sFA6EKIDE'
 
 ### Response
 
@@ -128,6 +150,7 @@ Where *currPair* can be any currency pair i.g. BTCZAR
 
     curl --location --request POST 'http://127.0.0.1:8080/BTCZAR/tradehistory' \
     --header 'x-user-id: sandeep'
+    --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FuZGVlcCIsImlhdCI6MTYyOTc2MjgyOH0._V2fJ7vs0fzAQEToQaEeT8rIxnkWLa8aF_sFA6EKIDE'
 
 ### Response
 
